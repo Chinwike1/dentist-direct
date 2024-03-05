@@ -1,28 +1,28 @@
 import mongoose, { Schema, model, connect } from 'mongoose'
 
-interface Appointments {
+interface AppointmentDocument {
   service: string
   date: string
   time: string
   cost: number
 }
 
-interface User {
+export interface UserDocument {
   first_name: string
   last_name: string
   email: string
   password?: string
-  appointments: Appointments[]
+  appointments: AppointmentDocument[]
 }
 
-const appointmentsSchema = new Schema<Appointments>({
+const appointmentsSchema = new Schema<AppointmentDocument>({
   service: { type: String },
   date: { type: String },
   time: { type: String },
   cost: { type: Number },
 })
 
-const userSchema = new Schema<User>({
+const userSchema = new Schema<UserDocument>({
   first_name: { type: String, required: true },
   last_name: { type: String, required: true },
   email: { type: String, required: true, unique: true },
@@ -30,13 +30,13 @@ const userSchema = new Schema<User>({
   appointments: [appointmentsSchema],
 })
 
-let userModel: any
+let User: any
 // this logic prevents the code from trying to overwrite the created model
 // sort of an SQL CREATE IF NOT EXISTS
 if (mongoose.models.User) {
-  userModel = mongoose.model<User>('User')
+  User = mongoose.model<UserDocument>('User')
 } else {
-  userModel = mongoose.model<User>('User', userSchema)
+  User = mongoose.model<UserDocument>('User', userSchema)
 }
 
-export default userModel
+export default User
