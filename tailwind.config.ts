@@ -23,6 +23,18 @@ const config = {
         sans: ['var(--font-quatt_sans)'],
       },
       colors: {
+        brand: {
+          DEFAULT: '#364BB4',
+          50: '#B8C0EA',
+          100: '#A8B2E5',
+          200: '#8997DC',
+          300: '#697BD2',
+          400: '#4A5FC9',
+          500: '#364BB4',
+          600: '#293989',
+          700: '#1C275E',
+          800: '#0F1533',
+        },
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
         ring: 'hsl(var(--ring))',
@@ -62,6 +74,11 @@ const config = {
         md: 'calc(var(--radius) - 2px)',
         sm: 'calc(var(--radius) - 4px)',
       },
+      animation: {
+        'shine-infinite': 'shine-infinite 2s ease-in-out 3s infinite',
+        'accordion-down': 'accordion-down 0.2s ease-out',
+        'accordion-up': 'accordion-up 0.2s ease-out',
+      },
       keyframes: {
         'accordion-down': {
           from: { height: '0' },
@@ -71,10 +88,14 @@ const config = {
           from: { height: 'var(--radix-accordion-content-height)' },
           to: { height: '0' },
         },
-      },
-      animation: {
-        'accordion-down': 'accordion-down 0.2s ease-out',
-        'accordion-up': 'accordion-up 0.2s ease-out',
+        'shine-infinite': {
+          '0%': {
+            transform: 'skew(-12deg) translateX(-100%)',
+          },
+          '100%': {
+            transform: 'skew(-12deg) translateX(100%)',
+          },
+        },
       },
     },
   },
