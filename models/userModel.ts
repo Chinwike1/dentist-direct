@@ -1,5 +1,6 @@
 import mongoose, { Schema, model, connect } from 'mongoose'
 
+// Defining the Appointment Object Type
 interface AppointmentDocument {
   service: string
   date: string
@@ -7,6 +8,7 @@ interface AppointmentDocument {
   cost: number
 }
 
+// Defining the User Object Type
 export interface UserDocument {
   first_name: string
   last_name: string
@@ -15,6 +17,7 @@ export interface UserDocument {
   appointments: AppointmentDocument[]
 }
 
+// Defining the Appointment Schema
 const appointmentsSchema = new Schema<AppointmentDocument>({
   service: { type: String },
   date: { type: String },
@@ -22,6 +25,7 @@ const appointmentsSchema = new Schema<AppointmentDocument>({
   cost: { type: Number },
 })
 
+// Defining the User Schema
 const userSchema = new Schema<UserDocument>({
   first_name: { type: String, required: true },
   last_name: { type: String, required: true },

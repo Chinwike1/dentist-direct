@@ -1,4 +1,3 @@
-import { Console } from 'console'
 import mongoose, { ConnectOptions } from 'mongoose' // importing packages
 const uri: string | undefined = process.env.MONGODB_URI // importing env variable
 
