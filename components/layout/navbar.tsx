@@ -50,7 +50,7 @@ export default function Navbar() {
             Book Appointment
           </Link>
           <Link
-            href="/auth"
+            href="/auth/signin"
             className="ml-auto flex items-center rounded-xl bg-slate-200 bg-opacity-20 px-3 py-2 font-bold transition-colors hover:bg-slate-300"
           >
             Sign In <ChevronRightIcon className="h-5 w-5" />
