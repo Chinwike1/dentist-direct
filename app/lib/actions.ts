@@ -1,7 +1,7 @@
 'use server'
 
 import connectToDatabase from './connectdb'
-import User, { UserDocument } from '@/models/userModel'
+import User, { UserDocument } from '@/app/models/userModel'
 
 // Function to create a new user
 export async function createUser(
