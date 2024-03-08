@@ -2,17 +2,8 @@ import type { Metadata } from 'next'
 import { DM_Sans, Quattrocento_Sans } from 'next/font/google'
 import './globals.css'
 import { cn } from '@/lib/utils'
-
-const dm_sans = DM_Sans({
-  subsets: ['latin'],
-  weight: '400',
-  variable: '--font-dm_sans',
-})
-const quatt_sans = Quattrocento_Sans({
-  subsets: ['latin'],
-  weight: '400',
-  variable: '--font-quatt_sans',
-})
+import Navbar from '@/components/layout/navbar'
+import { fonts } from '@/lib/fonts'
 
 export const metadata: Metadata = {
   title: 'Dentist Direct',
@@ -28,12 +19,12 @@ export default function RootLayout({
     <html lang="en">
       <body
         className={cn(
-          'antialiased',
-          dm_sans.variable,
-          quatt_sans.variable,
+          'font-sans antialiased',
+          fonts,
           process.env.NODE_ENV === 'development' && 'debug-screens',
         )}
       >
+        <Navbar />
         <div className="font-sans">{children}</div>
       </body>
     </html>
