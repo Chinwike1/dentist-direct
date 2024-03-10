@@ -9,7 +9,7 @@ export async function createUser(
 ): Promise<UserDocument> {
   await connectToDatabase('dentist-direct')
 
-  const user = new User()
+  const user = new User(userDetails)
   await user.save()
   return user
 }

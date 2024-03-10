@@ -13,17 +13,19 @@ export interface UserDocument {
   first_name: string
   last_name: string
   email: string
-  password?: string
   appointments?: AppointmentDocument[]
 }
 
 // Defining the Appointment Schema
-const appointmentsSchema = new Schema<AppointmentDocument>({
-  service: { type: String },
-  date: { type: String },
-  time: { type: String },
-  cost: { type: Number },
-})
+const appointmentsSchema = new Schema<AppointmentDocument>(
+  {
+    service: { type: String },
+    date: { type: String },
+    time: { type: String },
+    cost: { type: Number },
+  },
+  { timestamps: true },
+)
 
 // Defining the User Schema
 const userSchema = new Schema<UserDocument>(
@@ -31,7 +33,6 @@ const userSchema = new Schema<UserDocument>(
     first_name: { type: String, required: true },
     last_name: { type: String, required: true },
     email: { type: String, required: true, unique: true },
-    password: { type: String },
     appointments: [appointmentsSchema],
   },
   { timestamps: true },

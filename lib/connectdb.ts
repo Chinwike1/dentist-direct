@@ -1,4 +1,6 @@
-import mongoose, { ConnectOptions } from 'mongoose' // importing packages
+import mongoose, { ConnectOptions } from 'mongoose'
+import colors from 'colors'
+
 const uri: string | undefined = process.env.MONGODB_URI // importing env variable
 
 const clientOptions: ConnectOptions = {
@@ -17,7 +19,7 @@ export default async function connectToDatabase(
       throw new Error('MongoDB URI not provided')
     }
     if (isConnected) {
-      console.log('Already connected to MongoDB')
+      console.log(colors.green('✔ Already connected to MongoDB'))
       return
     }
     // Create a Mongoose client with a MongoClientOptions object to set the Stable API version
@@ -25,7 +27,9 @@ export default async function connectToDatabase(
     await mongoose.connection.db.admin().command({ ping: 1 })
     const db = mongoose.connection.useDb(database)
     console.log(
-      `Pinged your deployment. You successfully connected to the ${database} in your MongoDB Cluster!`,
+      colors.green(
+        `✔ Pinged your database. You successfully connected to the '${database}' DB in your MongoDB Cluster!`,
+      ),
     )
     isConnected = true
   } catch (error) {
