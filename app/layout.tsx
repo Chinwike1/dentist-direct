@@ -1,8 +1,6 @@
-import type { Metadata } from 'next'
-import { DM_Sans, Quattrocento_Sans } from 'next/font/google'
 import './globals.css'
+import type { Metadata } from 'next'
 import { cn } from '@/lib/utils'
-import Navbar from '@/components/layout/navbar'
 import { fonts } from '@/lib/fonts'
 
 export const metadata: Metadata = {
@@ -24,7 +22,6 @@ export default function RootLayout({
           process.env.NODE_ENV === 'development' && 'debug-screens',
         )}
       >
-        <Navbar />
         <div className="font-sans">{children}</div>
       </body>
     </html>
