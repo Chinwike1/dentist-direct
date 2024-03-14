@@ -7,7 +7,6 @@ import Credentials from 'next-auth/providers/credentials'
 import GithubProvider from 'next-auth/providers/github'
 import type { NextAuthConfig } from 'next-auth'
 import clientPromise from './mongodb'
-import { POST } from '@/app/api/user/route'
 
 export const config = {
   adapter: MongoDBAdapter(clientPromise),
@@ -50,7 +49,9 @@ export const config = {
       return true // Do different verification for other providers that don't have `email_verified`
     },
   },
-  basePath: '/auth',
+  pages: {
+    signIn: '/register',
+  },
 } satisfies NextAuthConfig
 
 export const { handlers, auth, signIn, signOut } = NextAuth(config)

@@ -8,7 +8,10 @@ import { z } from 'zod'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import GoogleColoredIcon from '../icons/google'
+import { signIn } from 'next-auth/react'
 import Link from 'next/link'
+import React from 'react'
+import { useSearchParams } from 'next/navigation'
 
 // schema for signup form
 const signUpSchema = z.object({
@@ -16,6 +19,8 @@ const signUpSchema = z.object({
 })
 
 export default function RegisterForm() {
+  const searchParams = useSearchParams()
+
   // RHF instance
   const form = useForm<z.infer<typeof signUpSchema>>({
     resolver: zodResolver(signUpSchema),
@@ -26,6 +31,14 @@ export default function RegisterForm() {
 
   async function sendMagicLink(values: z.infer<typeof signUpSchema>) {
     console.log(values.email)
+  }
+
+  const onGoogleSubmit = (e: React.FormEvent) => {
+    const callbackUrl = searchParams.get('callbackUrl') || 'dashboard'
+    signIn('google', {
+      callbackUrl,
+      basePath: '/auth',
+    })
   }
 
   return (
@@ -66,7 +79,15 @@ export default function RegisterForm() {
       </div>
 
       {/* register with oauth */}
-      <Button className="w-full border-slate-300" variant="outline">
+      <Button
+        className="w-full border-slate-300"
+        variant="outline"
+        onClick={() =>
+          signIn('google', {
+            callbackUrl: '/dashboard',
+          })
+        }
+      >
         Google <GoogleColoredIcon className="ml-3 size-5" />
       </Button>
 
