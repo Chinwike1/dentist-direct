@@ -1,9 +1,13 @@
-import Hero from '@/components/hero'
+import Hero from '@/components/layout/hero'
+import Navbar from '@/components/layout/navbar'
 
 export default function Home() {
   return (
-    <section className="container mx-auto min-h-screen pt-16">
-      <Hero />
-    </section>
+    <>
+      <Navbar />
+      <section className="container mx-auto min-h-screen pt-16">
+        <Hero />
+      </section>
+    </>
   )
 }

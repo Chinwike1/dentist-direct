@@ -19,8 +19,8 @@ const config = {
     },
     extend: {
       fontFamily: {
-        mono: ['var(--font-dm_sans)'],
-        sans: ['var(--font-quatt_sans)'],
+        mono: ['var(--font-quatt_sans)'],
+        sans: ['var(--font-dm_sans)'],
       },
       colors: {
         brand: {
