@@ -9,10 +9,13 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import GoogleColoredIcon from '../icons/google'
 import Link from 'next/link'
-import { authSchema } from './login-form'
 
-// schema for signup form
-export default function RegisterForm() {
+// schema for auth flow
+export const authSchema = z.object({
+  email: z.string().email({ message: 'Please enter a valid email address' }),
+})
+
+export default function LoginForm() {
   // RHF instance
   const form = useForm<z.infer<typeof authSchema>>({
     resolver: zodResolver(authSchema),
@@ -26,11 +29,11 @@ export default function RegisterForm() {
   }
 
   return (
-    <div className="w-4/5 lg:w-3/5">
-      <h1 className="text-3xl font-bold lg:text-4xl">Get started with us</h1>
-      <p className="mb-6 mt-3">Let's help put a smile on your face today!</p>
+    <div className="w-4/5 lg:w-2/5">
+      <h1 className="text-3xl font-bold lg:text-4xl">Welcome Back</h1>
+      <p className="mb-6 mt-3">Your dental health journey awaits you.</p>
 
-      {/* register with email */}
+      {/* login with email */}
       <Form {...form}>
         <form onSubmit={form.handleSubmit(sendMagicLink)} className="space-y-4">
           <FormField
@@ -45,7 +48,7 @@ export default function RegisterForm() {
             )}
           />
           <Button type="submit" className="w-full">
-            Register with Email <EnvelopeClosedIcon className="ml-3 size-5" />
+            Continue with Email <EnvelopeClosedIcon className="ml-3 size-5" />
           </Button>
         </form>
       </Form>
@@ -60,20 +63,16 @@ export default function RegisterForm() {
         </div>
       </div>
 
-      {/* register with oauth */}
+      {/* login with oauth */}
       <Button className="w-full border-slate-400" variant="outline">
         Continue with Google <GoogleColoredIcon className="ml-3 size-5" />
       </Button>
 
       <div className="mt-6">
-        By clicking continue, you agree to our{' '}
-        <Link className="capitalize underline" href="#">
-          terms of service
-        </Link>{' '}
-        and{' '}
-        <Link className="capitalize underline" href="#">
-          privacy policy
-        </Link>{' '}
+        Don't have an account?{' '}
+        <Link className="capitalize underline" href="/register">
+          Register here.
+        </Link>
       </div>
     </div>
   )
