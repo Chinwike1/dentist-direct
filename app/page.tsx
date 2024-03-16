@@ -5,7 +5,7 @@ export default function Home() {
   return (
     <>
       <Navbar />
-      <section className="container mx-auto min-h-screen pt-16">
+      <section className="container mx-auto mt-[--nav-height] min-h-screen pt-16">
         <Hero />
       </section>
     </>
