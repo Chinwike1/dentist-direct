@@ -41,13 +41,18 @@ export const config = {
       }
       return true // Do different verification for other providers that don't have `email_verified`
     },
+    async session({ session }) {
+      session.sessionToken = session.sessionToken
+      return session
+    },
   },
+
   pages: {
     signIn: '/register',
   },
   session: {
     generateSessionToken: () => randomUUID(),
-    maxAge: 2592000,
+    maxAge: 86400,
     strategy: 'database',
     updateAge: 86400,
   },
