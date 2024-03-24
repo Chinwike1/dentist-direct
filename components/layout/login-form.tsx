@@ -6,6 +6,7 @@ import { Form, FormControl, FormField, FormItem } from '../ui/form'
 import { Input } from '../ui/input'
 import { z } from 'zod'
 import { useForm } from 'react-hook-form'
+import { signIn } from 'next-auth/react'
 import { zodResolver } from '@hookform/resolvers/zod'
 import GoogleColoredIcon from '../icons/google'
 import Link from 'next/link'
@@ -64,7 +65,15 @@ export default function LoginForm() {
       </div>
 
       {/* login with oauth */}
-      <Button className="w-full border-slate-400" variant="outline">
+      <Button
+        className="w-full border-slate-400"
+        variant="outline"
+        onClick={() =>
+          signIn('google', {
+            callbackUrl: '/dashboard',
+          })
+        }
+      >
         Continue with Google <GoogleColoredIcon className="ml-3 size-5" />
       </Button>
 

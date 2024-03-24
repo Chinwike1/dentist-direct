@@ -11,6 +11,7 @@ import GoogleColoredIcon from '../icons/google'
 import { signIn } from 'next-auth/react'
 import Link from 'next/link'
 import { authSchema } from './login-form'
+import { useSearchParams } from 'next/navigation'
 
 // schema for signup form
 export default function RegisterForm() {
@@ -26,14 +27,6 @@ export default function RegisterForm() {
 
   async function sendMagicLink(values: z.infer<typeof authSchema>) {
     console.log(values.email)
-  }
-
-  const onGoogleSubmit = (e: React.FormEvent) => {
-    const callbackUrl = searchParams.get('callbackUrl') || 'dashboard'
-    signIn('google', {
-      callbackUrl,
-      basePath: '/auth',
-    })
   }
 
   return (

@@ -1,31 +1,23 @@
 import NextAuth from 'next-auth'
 import { MongoDBAdapter } from '@auth/mongodb-adapter'
-import connectToDatabase from './connectdb'
+import connectToDatabase from './lib/connectdb'
 import Google from 'next-auth/providers/google'
 import User from '@/app/models/userModel'
 import Credentials from 'next-auth/providers/credentials'
-import GithubProvider from 'next-auth/providers/github'
+import Github from 'next-auth/providers/github'
 import type { NextAuthConfig } from 'next-auth'
-import clientPromise from './mongodb'
+import clientPromise from './lib/mongodb'
+import { randomUUID } from 'crypto'
 
 export const config = {
   adapter: MongoDBAdapter(clientPromise),
-  providers: [
-    GithubProvider({
-      clientId: process.env.GITHUB_APP_CLIENT_ID as string,
-      clientSecret: process.env.GITHUB_APP_CLIENT_SECRET as string,
-    }),
-    Google({
-      clientId: process.env.GOOGLE_CLIENT_ID,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      allowDangerousEmailAccountLinking: true,
-    }),
-  ],
+  providers: [Github, Google],
   callbacks: {
-    async signIn({ account, profile, user }) {
-      if (account.provider === 'google') {
+    async signIn({ profile }) {
+      if (profile?.provider === 'google') {
         const { email, given_name, family_name } = profile
         try {
+          console.log(email, given_name, family_name)
           await connectToDatabase('dentist-direct')
           const userExists = await User.findOne({ email })
           if (!userExists) {
@@ -52,6 +44,12 @@ export const config = {
   pages: {
     signIn: '/register',
   },
+  session: {
+    generateSessionToken: () => randomUUID(),
+    maxAge: 2592000,
+    strategy: 'database',
+    updateAge: 86400,
+  },
 } satisfies NextAuthConfig
 
-export const { handlers, auth, signIn, signOut } = NextAuth(config)
+export const { handlers, auth } = NextAuth(config)
