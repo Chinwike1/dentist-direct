@@ -11,12 +11,9 @@ import GoogleColoredIcon from '../icons/google'
 import { signIn } from 'next-auth/react'
 import Link from 'next/link'
 import { authSchema } from './login-form'
-import { useSearchParams } from 'next/navigation'
 
 // schema for signup form
 export default function RegisterForm() {
-  const searchParams = useSearchParams()
-
   // RHF instance
   const form = useForm<z.infer<typeof authSchema>>({
     resolver: zodResolver(authSchema),
