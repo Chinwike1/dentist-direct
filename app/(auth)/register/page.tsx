@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { MoveLeftIcon } from 'lucide-react'
 import RegisterForm from '@/components/layout/register-form'
 
+
 export default function RegisterPage() {
   return (
     <section className="grid min-h-screen grid-cols-1 md:grid-cols-2">
@@ -36,3 +37,5 @@ export default function RegisterPage() {
     </section>
   )
 }
+
+
