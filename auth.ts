@@ -13,33 +13,34 @@ export const config = {
   adapter: MongoDBAdapter(clientPromise),
   providers: [Github, Google],
   callbacks: {
-    // async signIn({ profile }) {
-    //   if (profile?.provider === 'google') {
-    //     const { email, given_name, family_name } = profile
-    //     try {
-    //       console.log(email, given_name, family_name)
-    //       await connectToDatabase('dentist-direct')
-    //       const userExists = await User.findOne({ email })
-    //       if (!userExists) {
-    //         const res = await fetch('http://localhost:3000/api/user', {
-    //           method: 'POST',
-    //           headers: {
-    //             'Content-Type': 'application/json',
-    //           },
-    //           body: JSON.stringify({
-    //             firstname: given_name,
-    //             lastname: family_name,
-    //             email: email,
-    //           }),
-    //         })
-    //         if (res.ok) return User
-    //       }
-    //     } catch (error) {
-    //       console.error(error)
-    //     }
-    //   }
-    //   return true // Do different verification for other providers that don't have `email_verified`
-    // },
+    //
+    async signIn({ user, account, profile, email, credentials }) {
+      if (profile?.provider === 'google') {
+        const { email, given_name, family_name } = profile
+        try {
+          console.log(email, given_name, family_name)
+          await connectToDatabase('dentist-direct')
+          const userExists = await User.findOne({ email })
+          if (!userExists) {
+            const res = await fetch('http://localhost:3000/api/user', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                firstname: given_name,
+                lastname: family_name,
+                email: email,
+              }),
+            })
+            if (res.ok) console.log('New User Saved')
+          }
+        } catch (error) {
+          console.error(error)
+        }
+      }
+      return true // Do different verification for other providers that don't have `email_verified`
+    },
   },
   pages: {
     signIn: '/register',
