@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "turbo": "next dev --turbo",
+    "email": "cd react-email && pnpm dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
