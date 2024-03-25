@@ -8,6 +8,7 @@ import { z } from 'zod'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import GoogleColoredIcon from '../icons/google'
+import { signIn } from 'next-auth/react'
 import Link from 'next/link'
 import { authSchema } from './login-form'
 
@@ -61,8 +62,16 @@ export default function RegisterForm() {
       </div>
 
       {/* register with oauth */}
-      <Button className="w-full border-slate-400" variant="outline">
-        Continue with Google <GoogleColoredIcon className="ml-3 size-5" />
+      <Button
+        className="w-full border-slate-300"
+        variant="outline"
+        onClick={() =>
+          signIn('google', {
+            callbackUrl: '/dashboard',
+          })
+        }
+      >
+        Google <GoogleColoredIcon className="ml-3 size-5" />
       </Button>
 
       <div className="mt-6">
