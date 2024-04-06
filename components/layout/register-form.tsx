@@ -11,15 +11,16 @@ import GoogleColoredIcon from '../icons/google'
 import { signIn } from 'next-auth/react'
 import Link from 'next/link'
 import { authSchema } from './login-form'
-<<<<<<< HEAD
 import { RotateCw } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { toast } from '../ui/use-toast'
 import { useSearchParams } from 'next/navigation'
+import { Spinner } from '@radix-ui/themes'
 
 // schema for signup form
 export default function RegisterForm() {
   const [isLoading, setIsLoading] = useState(false)
+  const [loading, setLoading] = useState(false)
   const searchParams = useSearchParams()
 
   // show toast for new users
@@ -33,14 +34,6 @@ export default function RegisterForm() {
     }
   }, [])
 
-=======
-import { Spinner } from '@radix-ui/themes'
-import { useState } from 'react'
-
-// schema for signup form
-export default function RegisterForm() {
-  const [loading, setLoading] = useState(false)
->>>>>>> 72d843a8474eb70098cb1e68e172222cba937904
   // RHF instance
   const form = useForm<z.infer<typeof authSchema>>({
     resolver: zodResolver(authSchema),

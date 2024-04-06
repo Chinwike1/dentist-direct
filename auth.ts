@@ -23,7 +23,6 @@ export const config = {
     }),
   ],
   callbacks: {
-<<<<<<< HEAD
     // async signIn({ user }) {
     // }
     // async signIn({ profile }) {
@@ -53,7 +52,6 @@ export const config = {
     //   }
     //   return true // Do different verification for other providers that don't have `email_verified`
     // },
-=======
     //
     async signIn({ user, account, profile, email, credentials }) {
       if (profile?.provider === 'google') {
@@ -86,7 +84,6 @@ export const config = {
       session.sessionToken = session.sessionToken
       return session
     },
->>>>>>> 72d843a8474eb70098cb1e68e172222cba937904
   },
 
   pages: {
