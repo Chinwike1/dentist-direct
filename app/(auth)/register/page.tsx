@@ -3,7 +3,7 @@ import DentistCheckupPhoto from '@/public/images/dentist-checkup.jpg'
 import Link from 'next/link'
 import { MoveLeftIcon } from 'lucide-react'
 import RegisterForm from '@/components/layout/register-form'
-
+import { Suspense } from 'react'
 
 export default function RegisterPage() {
   return (
@@ -32,10 +32,14 @@ export default function RegisterPage() {
             Login
           </Link>
         </div>
-        <RegisterForm />
+        {/* 
+           since RegisterForm uses the useSearchParams hook, it needs to be wrapped in a suspense boundary
+           see — https://nextjs.org/docs/app/api-reference/functions/use-search-params#static-rendering
+        */}
+        <Suspense fallback={false}>
+          <RegisterForm />
+        </Suspense>
       </div>
     </section>
   )
 }
-
-

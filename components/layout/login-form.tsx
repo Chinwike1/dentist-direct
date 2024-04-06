@@ -10,8 +10,11 @@ import { signIn } from 'next-auth/react'
 import { zodResolver } from '@hookform/resolvers/zod'
 import GoogleColoredIcon from '../icons/google'
 import Link from 'next/link'
-import { Spinner } from '@radix-ui/themes'
 import { useState } from 'react'
+import { RotateCw } from 'lucide-react'
+import { toast } from '../ui/use-toast'
+import { useRouter } from 'next/navigation'
+import { Spinner } from '@radix-ui/themes'
 
 // schema for auth flow
 export const authSchema = z.object({
@@ -19,6 +22,9 @@ export const authSchema = z.object({
 })
 
 export default function LoginForm() {
+  const [isLoading, setIsLoading] = useState(false)
+  const router = useRouter()
+
   const [loading, setLoading] = useState(false)
   // RHF instance
   const form = useForm<z.infer<typeof authSchema>>({
@@ -28,12 +34,50 @@ export default function LoginForm() {
     },
   })
 
-  async function sendMagicLink(values: z.infer<typeof authSchema>) {
-    console.log(values.email)
+  async function sendMagicLink(data: z.infer<typeof authSchema>) {
+    setIsLoading(true)
+    try {
+      const res = await fetch(`${window.location.origin}/api/get-user`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: data.email,
+        }),
+      })
+      const response = await res.json()
+
+      // only send magic link if email exists in DB
+      if (response.userExists) {
+        const signInResult = await signIn('email', {
+          email: data.email.toLowerCase(),
+          redirect: false,
+          callbackUrl: '/dashboard',
+        })
+
+        if (signInResult?.ok && signInResult.error === null) {
+          setIsLoading(false)
+          toast({
+            title: 'Email Delivered!',
+            description: 'Check your inbox or spam folder for your login link.',
+          })
+          return
+        }
+      } else {
+        router.push(`/register?newUser=true?&email=${data.email}`)
+      }
+    } catch (error: any) {
+      setIsLoading(false)
+      toast({
+        title: 'Sorry, we encountered a problem sending the email',
+        description: 'Please try again.',
+      })
+    }
   }
 
   return (
-    <div className="w-4/5 lg:w-2/5">
+    <div className="w-4/5 sm:w-3/5 xl:w-[35%]">
       <h1 className="text-3xl font-bold lg:text-4xl">Welcome Back</h1>
       <p className="mb-6 mt-3">Your dental health journey awaits you.</p>
 
@@ -51,8 +95,18 @@ export default function LoginForm() {
               </FormItem>
             )}
           />
-          <Button type="submit" className="w-full">
-            Continue with Email <EnvelopeClosedIcon className="ml-3 size-5" />
+          <Button type="submit" className="w-full" disabled={isLoading}>
+            {isLoading ? (
+              <>
+                Sending email
+                <RotateCw className="ml-3 size-5 animate-spin" />
+              </>
+            ) : (
+              <>
+                Continue with Email{' '}
+                <EnvelopeClosedIcon className="ml-3 size-5" />
+              </>
+            )}
           </Button>
         </form>
       </Form>
