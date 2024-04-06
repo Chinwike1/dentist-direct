@@ -10,10 +10,15 @@ import { signIn } from 'next-auth/react'
 import { zodResolver } from '@hookform/resolvers/zod'
 import GoogleColoredIcon from '../icons/google'
 import Link from 'next/link'
+<<<<<<< HEAD
 import { useState } from 'react'
 import { RotateCw } from 'lucide-react'
 import { toast } from '../ui/use-toast'
 import { useRouter } from 'next/navigation'
+=======
+import { Spinner } from '@radix-ui/themes'
+import { useState } from 'react'
+>>>>>>> 72d843a8474eb70098cb1e68e172222cba937904
 
 // schema for auth flow
 export const authSchema = z.object({
@@ -21,9 +26,13 @@ export const authSchema = z.object({
 })
 
 export default function LoginForm() {
+<<<<<<< HEAD
   const [isLoading, setIsLoading] = useState(false)
   const router = useRouter()
 
+=======
+  const [loading, setLoading] = useState(false)
+>>>>>>> 72d843a8474eb70098cb1e68e172222cba937904
   // RHF instance
   const form = useForm<z.infer<typeof authSchema>>({
     resolver: zodResolver(authSchema),
@@ -123,13 +132,15 @@ export default function LoginForm() {
       <Button
         className="w-full border-slate-400"
         variant="outline"
-        onClick={() =>
+        onClick={() => {
           signIn('google', {
             callbackUrl: '/dashboard',
           })
-        }
+          setLoading(true)
+        }}
       >
         Continue with Google <GoogleColoredIcon className="ml-3 size-5" />
+        {loading ? <Spinner className="ml-3" size="3" /> : null}
       </Button>
 
       <div className="mt-6">

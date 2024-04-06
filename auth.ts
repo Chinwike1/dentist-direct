@@ -23,6 +23,7 @@ export const config = {
     }),
   ],
   callbacks: {
+<<<<<<< HEAD
     // async signIn({ user }) {
     // }
     // async signIn({ profile }) {
@@ -52,13 +53,48 @@ export const config = {
     //   }
     //   return true // Do different verification for other providers that don't have `email_verified`
     // },
+=======
+    //
+    async signIn({ user, account, profile, email, credentials }) {
+      if (profile?.provider === 'google') {
+        const { email, given_name, family_name } = profile
+        try {
+          console.log(email, given_name, family_name)
+          await connectToDatabase('dentist-direct')
+          const userExists = await User.findOne({ email })
+          if (!userExists) {
+            const res = await fetch('http://localhost:3000/api/user', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                firstname: given_name,
+                lastname: family_name,
+                email: email,
+              }),
+            })
+            if (res.ok) console.log('New User Saved')
+          }
+        } catch (error) {
+          console.error(error)
+        }
+      }
+      return true // Do different verification for other providers that don't have `email_verified`
+    },
+    async session({ session }) {
+      session.sessionToken = session.sessionToken
+      return session
+    },
+>>>>>>> 72d843a8474eb70098cb1e68e172222cba937904
   },
+
   pages: {
     signIn: '/register',
   },
   session: {
     generateSessionToken: () => randomUUID(),
-    maxAge: 2592000,
+    maxAge: 86400,
     strategy: 'database',
     updateAge: 86400,
   },

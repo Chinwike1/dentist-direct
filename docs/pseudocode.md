@@ -19,14 +19,11 @@ So far, I have done the following:
 4. Established a Mongo Client Connection
 5. Created the dynamic auth route
 6. Configured the auth route. Used github credential as an example
-
-What is Next:
-
-1. Configure Google OAuth Credentials
-2. Customize Google OAuth Page (Add Logo)
-3. Configure the Google Provider on Next
-4. Configure the Credentials Provider
-5. Custom Login Page
+7. Configured Google OAuth Credentials
+8. Customized Google OAuth Page (Add Logo)
+9. Configured the Google Provider on Next
+10. Configured the Credentials Provider
+11. Custom Login Page
 
 Steps to persist user in DB
 
@@ -39,3 +36,10 @@ Algorithm of the callback
 2. Checks if user exists in DB
 3. Makes POST call to the endpoint with the user data in the body
 4. saves and returns user
+
+Session Management Strategy
+For oAuth Signin:
+
+1. User opts to sign in with the Google Provider
+2. User is asked for permission for the app to access its public Google data.
+3. User session is activated on the database

@@ -19,7 +19,11 @@
     "@radix-ui/react-icons": "^1.3.0",
     "@radix-ui/react-label": "^2.0.2",
     "@radix-ui/react-slot": "^1.0.2",
+<<<<<<< HEAD
     "@radix-ui/react-toast": "^1.1.5",
+=======
+    "@radix-ui/themes": "^3.0.0",
+>>>>>>> 72d843a8474eb70098cb1e68e172222cba937904
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
     "colors": "^1.4.0",
