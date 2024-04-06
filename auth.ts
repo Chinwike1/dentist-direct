@@ -8,11 +8,23 @@ import Github from 'next-auth/providers/github'
 import type { NextAuthConfig } from 'next-auth'
 import clientPromise from './lib/mongodb'
 import { randomUUID } from 'crypto'
+import Email from 'next-auth/providers/nodemailer'
+import sendVerificationRequest from './lib/sendVerificationRequest'
 
 export const config = {
   adapter: MongoDBAdapter(clientPromise),
-  providers: [Github, Google],
+  providers: [
+    Github,
+    Google,
+    Email({
+      id: 'email',
+      server: process.env.SMTP_SERVER,
+      sendVerificationRequest,
+    }),
+  ],
   callbacks: {
+    // async signIn({ user }) {
+    // }
     // async signIn({ profile }) {
     //   if (profile?.provider === 'google') {
     //     const { email, given_name, family_name } = profile
@@ -50,6 +62,7 @@ export const config = {
     strategy: 'database',
     updateAge: 86400,
   },
+  debug: process.env.NODE_ENV === 'development' && true,
 } satisfies NextAuthConfig
 
 export const { handlers, auth } = NextAuth(config)
