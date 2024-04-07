@@ -1,5 +1,6 @@
 import { auth } from '@/auth'
 import { redirect } from 'next/navigation'
+import LogoutButton from '@/components/ui/logout'
 export default async function Dashboard() {
   const session = await auth()
   if (!session) {
@@ -8,7 +9,8 @@ export default async function Dashboard() {
   return (
     <>
       <h1>Protected Page</h1>
-      <pre>Welcome {JSON.stringify(session.user, null, 2)}!</pre>
+      <pre>Welcome {JSON.stringify(session?.user?.name, null, 2)}!</pre>
+      <LogoutButton />
     </>
   )
 }

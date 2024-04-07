@@ -5,7 +5,7 @@ export default function LoginPage() {
   return (
     <>
       <Navbar />
-      <section className="flex min-h-screen items-center justify-center text-center">
+      <section className="mt-5 flex min-h-screen items-center justify-center text-center">
         <LoginForm />
       </section>
     </>

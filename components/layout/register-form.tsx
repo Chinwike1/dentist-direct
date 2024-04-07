@@ -11,19 +11,61 @@ import GoogleColoredIcon from '../icons/google'
 import { signIn } from 'next-auth/react'
 import Link from 'next/link'
 import { authSchema } from './login-form'
+import { RotateCw } from 'lucide-react'
+import { useEffect, useState } from 'react'
+import { toast } from '../ui/use-toast'
+import { useSearchParams } from 'next/navigation'
+import { Spinner } from '@radix-ui/themes'
 
 // schema for signup form
 export default function RegisterForm() {
+  const [isLoading, setIsLoading] = useState(false)
+  const [loading, setLoading] = useState(false)
+  const searchParams = useSearchParams()
+
+  // show toast for new users
+  useEffect(() => {
+    const newUser = searchParams.get('newUser')
+    if (newUser) {
+      toast({
+        title: "Looks like you're new around here",
+        description: 'Create your account now',
+      })
+    }
+  }, [])
+
   // RHF instance
   const form = useForm<z.infer<typeof authSchema>>({
     resolver: zodResolver(authSchema),
     defaultValues: {
-      email: '',
+      email: searchParams.get('email') || '',
     },
   })
 
-  async function sendMagicLink(values: z.infer<typeof authSchema>) {
-    console.log(values.email)
+  async function sendMagicLink(data: z.infer<typeof authSchema>) {
+    setIsLoading(true)
+    try {
+      const signInResult = await signIn('email', {
+        email: data.email.toLowerCase(),
+        redirect: false,
+        callbackUrl: '/dashboard',
+      })
+
+      if (signInResult?.ok && signInResult.error === null) {
+        setIsLoading(false)
+        toast({
+          title: 'Email Delivered!',
+          description: 'Check your inbox or spam folder for your login link.',
+        })
+        return
+      }
+    } catch (error: any) {
+      setIsLoading(false)
+      toast({
+        title: 'Sorry, we encountered a problem sending the email',
+        description: 'Please try again.',
+      })
+    }
   }
 
   return (
@@ -45,8 +87,18 @@ export default function RegisterForm() {
               </FormItem>
             )}
           />
-          <Button type="submit" className="w-full">
-            Register with Email <EnvelopeClosedIcon className="ml-3 size-5" />
+          <Button type="submit" className="w-full" disabled={isLoading}>
+            {isLoading ? (
+              <>
+                Sending email
+                <RotateCw className="ml-3 size-5 animate-spin" />
+              </>
+            ) : (
+              <>
+                Register with Email{' '}
+                <EnvelopeClosedIcon className="ml-3 size-5" />
+              </>
+            )}
           </Button>
         </form>
       </Form>
@@ -65,13 +117,15 @@ export default function RegisterForm() {
       <Button
         className="w-full border-slate-300"
         variant="outline"
-        onClick={() =>
+        onClick={() => {
           signIn('google', {
             callbackUrl: '/dashboard',
           })
-        }
+          setLoading(true)
+        }}
       >
         Google <GoogleColoredIcon className="ml-3 size-5" />
+        {loading ? <Spinner className="ml-3 text-blue-800" size="3" /> : null}
       </Button>
 
       <div className="mt-6">
