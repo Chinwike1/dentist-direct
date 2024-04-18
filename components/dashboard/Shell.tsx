@@ -70,7 +70,6 @@ export default function DashboardLayout({
 
         collapsed: { mobile: !opened, desktop: !desktopOpened },
       }}
-      //   footer={{ height: 60 }}
       padding="md"
     >
       <AppShell.Header px="lg" ml="" bg="#B8C0EA" className={classes.header}>
@@ -257,7 +256,6 @@ export default function DashboardLayout({
         </AppShell.Section>
       </AppShell.Navbar>
       <AppShell.Main>{children}</AppShell.Main>
-      {/* <AppShell.Footer>Footer</AppShell.Footer> */}
     </AppShell>
   )
 }
