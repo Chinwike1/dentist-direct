@@ -5,6 +5,8 @@ import { fonts } from '@/lib/fonts'
 import { Toaster } from '@/components/ui/toaster'
 import { Theme } from '@radix-ui/themes'
 import '@radix-ui/themes/styles.css'
+import { MantineProvider } from '@mantine/core'
+import '@mantine/core/styles.css'
 
 export const metadata: Metadata = {
   title: 'Dentist Direct',
@@ -18,6 +20,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head></head>
       <body
         className={cn(
           'font-sans antialiased',
@@ -27,7 +30,10 @@ export default function RootLayout({
       >
         <Toaster />
         <Theme>
-          <div className="font-sans">{children}</div>
+          <div className="font-sans">
+            <MantineProvider>{children}</MantineProvider>
+          </div>
+          {/* <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script> */}
         </Theme>
       </body>
     </html>
