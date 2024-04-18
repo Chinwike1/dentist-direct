@@ -4,7 +4,7 @@ import { cn } from '@/lib/utils'
 import { fonts } from '@/lib/fonts'
 import { Theme } from '@radix-ui/themes'
 import '@radix-ui/themes/styles.css'
-import { ColorSchemeScript, MantineProvider } from '@mantine/core'
+import { MantineProvider } from '@mantine/core'
 import '@mantine/core/styles.css'
 
 export const metadata: Metadata = {
@@ -19,9 +19,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <head>
-        <ColorSchemeScript />
-      </head>
+      <head></head>
       <body
         className={cn(
           'font-sans antialiased',

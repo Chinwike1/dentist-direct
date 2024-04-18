@@ -8,10 +8,10 @@ export default function ToothIcon({
 }) {
   return (
     <svg
-      width="127"
-      height="124"
+      width="57"
+      height="54"
       viewBox="0 0 127 124"
-      fill="none"
+      fill="#000"
       xmlns="http://www.w3.org/2000/svg"
       className={className}
       {...props}
