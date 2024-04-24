@@ -1,7 +1,6 @@
 'use client'
 
 import { Button } from '../ui/button'
-import { EnvelopeClosedIcon } from '@radix-ui/react-icons'
 import { Form, FormControl, FormField, FormItem } from '../ui/form'
 import { Input } from '../ui/input'
 import { z } from 'zod'
@@ -11,11 +10,11 @@ import GoogleColoredIcon from '../icons/google'
 import { signIn } from 'next-auth/react'
 import Link from 'next/link'
 import { authSchema } from './login-form'
-import { RotateCw } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { toast } from '../ui/use-toast'
 import { useSearchParams } from 'next/navigation'
-import { Spinner } from '@radix-ui/themes'
+import Spinner from '../ui/spinner'
+import { MailPlusIcon } from 'lucide-react'
 
 // schema for signup form
 export default function RegisterForm() {
@@ -82,7 +81,12 @@ export default function RegisterForm() {
             render={({ field }) => (
               <FormItem>
                 <FormControl>
-                  <Input placeholder="me@email.com" {...field} />
+                  <Input
+                    type="email"
+                    inputMode="email"
+                    placeholder="me@email.com"
+                    {...field}
+                  />
                 </FormControl>
               </FormItem>
             )}
@@ -90,13 +94,11 @@ export default function RegisterForm() {
           <Button type="submit" className="w-full" disabled={isLoading}>
             {isLoading ? (
               <>
-                Sending email
-                <RotateCw className="ml-3 size-5 animate-spin" />
+                <Spinner textLeft="Sending magic link" />
               </>
             ) : (
               <>
-                Register with Email{' '}
-                <EnvelopeClosedIcon className="ml-3 size-5" />
+                Register with Email <MailPlusIcon className="ml-3 size-5" />
               </>
             )}
           </Button>
@@ -115,7 +117,7 @@ export default function RegisterForm() {
 
       {/* register with oauth */}
       <Button
-        className="w-full border-slate-300"
+        className={`w-full border-slate-300 ${loading && 'opacity-50'}`}
         variant="outline"
         onClick={() => {
           signIn('google', {
@@ -123,9 +125,10 @@ export default function RegisterForm() {
           })
           setLoading(true)
         }}
+        disabled={loading}
       >
         Google <GoogleColoredIcon className="ml-3 size-5" />
-        {loading ? <Spinner className="ml-3 text-blue-800" size="3" /> : null}
+        {loading ? <Spinner size="5" /> : null}
       </Button>
 
       <div className="mt-6">

@@ -2,8 +2,19 @@
 @tailwind components;
 @tailwind utilities;
 
+html,
+body,
+:root {
+  height: 100%;
+}
+
 @layer base {
   :root {
+    --nav-height: 75px;
+    --sidenav-width-expanded: 300px;
+    --sidenav-width-collapsed: 90px;
+
+    /* shadcn variables */
     --background: 0 0% 100%;
     --foreground: 240 10% 3.9%;
 
@@ -33,8 +44,6 @@
     --ring: 240 10% 3.9%;
 
     --radius: 0.5rem;
-
-    --nav-height: 75px;
   }
 
   .dark {

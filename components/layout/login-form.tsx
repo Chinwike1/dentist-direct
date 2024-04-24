@@ -1,7 +1,6 @@
 'use client'
 
 import { Button } from '../ui/button'
-import { EnvelopeClosedIcon } from '@radix-ui/react-icons'
 import { Form, FormControl, FormField, FormItem } from '../ui/form'
 import { Input } from '../ui/input'
 import { z } from 'zod'
@@ -11,10 +10,10 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import GoogleColoredIcon from '../icons/google'
 import Link from 'next/link'
 import { useState } from 'react'
-import { RotateCw } from 'lucide-react'
 import { toast } from '../ui/use-toast'
 import { useRouter } from 'next/navigation'
-import { Spinner } from '@radix-ui/themes'
+import Spinner from '../ui/spinner'
+import { MailPlusIcon } from 'lucide-react'
 
 // schema for auth flow
 export const authSchema = z.object({
@@ -23,9 +22,9 @@ export const authSchema = z.object({
 
 export default function LoginForm() {
   const [isLoading, setIsLoading] = useState(false)
+  const [loading, setLoading] = useState(false)
   const router = useRouter()
 
-  const [loading, setLoading] = useState(false)
   // RHF instance
   const form = useForm<z.infer<typeof authSchema>>({
     resolver: zodResolver(authSchema),
@@ -90,21 +89,22 @@ export default function LoginForm() {
             render={({ field }) => (
               <FormItem>
                 <FormControl>
-                  <Input placeholder="me@email.com" {...field} />
+                  <Input
+                    type="email"
+                    inputMode="email"
+                    placeholder="you@email.com"
+                    {...field}
+                  />
                 </FormControl>
               </FormItem>
             )}
           />
           <Button type="submit" className="w-full" disabled={isLoading}>
             {isLoading ? (
-              <>
-                Sending email
-                <RotateCw className="ml-3 size-5 animate-spin" />
-              </>
+              <Spinner textLeft="Sending magic link" size="5" />
             ) : (
               <>
-                Continue with Email{' '}
-                <EnvelopeClosedIcon className="ml-3 size-5" />
+                Continue with Email <MailPlusIcon className="ml-3 size-5" />
               </>
             )}
           </Button>
@@ -123,7 +123,7 @@ export default function LoginForm() {
 
       {/* login with oauth */}
       <Button
-        className="w-full border-slate-400"
+        className={`w-full border-slate-300 ${loading && 'opacity-50'}`}
         variant="outline"
         onClick={() => {
           signIn('google', {
@@ -131,6 +131,7 @@ export default function LoginForm() {
           })
           setLoading(true)
         }}
+        disabled={loading}
       >
         Continue with Google <GoogleColoredIcon className="ml-3 size-5" />
         {loading ? <Spinner className="ml-3" size="3" /> : null}

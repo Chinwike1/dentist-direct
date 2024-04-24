@@ -19,8 +19,8 @@ export default function Hero() {
           through our doors
         </p>
         <Link
-          href="/dashboard?action=new_appointment"
-          className="group relative mx-auto flex h-14 w-fit items-center justify-center overflow-hidden rounded-md bg-brand px-6 font-sans text-neutral-50 transition ease-in-out hover:scale-105 hover:bg-brand-600 hover:shadow-lg hover:shadow-brand-100"
+          href="/dashboard/book?action=new_appointment"
+          className="bg-aqua text-aqua-100 hover:shadow-aqua-100 group relative mx-auto flex h-14 w-fit items-center justify-center overflow-hidden rounded-md px-6 transition ease-in-out hover:scale-105 hover:shadow-lg"
         >
           <span className="relative font-semibold">Book An Appointment</span>
           <ArrowRightIcon className="ml-2 h-5 w-5" />
