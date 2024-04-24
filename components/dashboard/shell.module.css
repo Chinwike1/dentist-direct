@@ -1,0 +1,32 @@
+.section{
+  display: flex;
+  justify-content: center;
+}
+
+
+.header {
+  display: flex;
+  align-items: center;
+ 
+}
+
+.navBar {
+  align-items: center;
+  justify-content: space-between;
+  background: #d3d3d3;
+
+  @media (max-width: 36em){
+      align-items: start;
+      justify-content: center;
+  }
+}
+
+.menuContainer {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+
+  @media (max-width: 36em){
+      align-items: start;
+  }
+}

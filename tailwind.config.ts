@@ -7,6 +7,8 @@ const config = {
     './components/**/*.{ts,tsx}',
     './app/**/*.{ts,tsx}',
     './src/**/*.{ts,tsx}',
+    // './node_modules/flowbite-react/lib/**/*.js',
+    // './node_modules/flowbite/**/*.js',
   ],
   prefix: '',
   theme: {
@@ -110,6 +112,7 @@ const config = {
   plugins: [
     require('tailwindcss-animate'),
     require('tailwindcss-debug-screens'),
+    // require('flowbite/plugin'),
   ],
 } satisfies Config
 

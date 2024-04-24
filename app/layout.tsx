@@ -4,6 +4,7 @@ import { cn } from '@/lib/utils'
 import { fonts } from '@/lib/fonts'
 import { Toaster } from '@/components/ui/toaster'
 import { Theme } from '@radix-ui/themes'
+
 import '@radix-ui/themes/styles.css'
 
 export const metadata: Metadata = {
@@ -18,6 +19,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head></head>
       <body
         className={cn(
           'font-sans antialiased',
