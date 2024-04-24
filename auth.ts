@@ -91,11 +91,10 @@ export const config = {
   },
   session: {
     generateSessionToken: () => randomUUID(),
-    maxAge: 86400,
+    maxAge: 432000, // 5days
     strategy: 'database',
-    updateAge: 86400,
+    updateAge: 432000,
   },
-  debug: process.env.NODE_ENV === 'development' && true,
 } satisfies NextAuthConfig
 
 export const { handlers, auth } = NextAuth(config)
