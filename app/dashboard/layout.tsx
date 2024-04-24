@@ -1,8 +1,8 @@
 import DashboardLayout from '@/components/dashboard/Shell'
 
 export const metadata = {
-  title: 'My Mantine app',
-  description: 'I have followed setup instructions carefully',
+  title: 'Dentist Direct',
+  description: 'Simplified Dental Appointment Scheduling Application',
 }
 
 export default function RootLayout({
