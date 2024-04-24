@@ -12,8 +12,8 @@ export default async function Dashboard() {
     <>
       {/* <Alert color="warning">Alert!</Alert> */}
 
-      <h1>Protected Page</h1>
-      <Pill c="red">Working???</Pill>
+      {/* <h1>Protected Page</h1>
+      <Pill c="red">Working???</Pill> */}
       <pre>Welcome {JSON.stringify(session, null, 2)}!</pre>
       <LogoutButton />
     </>
