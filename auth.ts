@@ -50,8 +50,9 @@ export const config = {
       }
       return true // Do different verification for other providers that don't have `email_verified`
     },
-    async session({ session }) {
+    async session({ session, user }) {
       session.sessionToken = session.sessionToken
+      session.userId = user.id
       return session
     },
     // async signOut() {
@@ -61,7 +62,7 @@ export const config = {
 
   pages: {
     signIn: '/register',
-    signOut: '/logout',
+    // signOut: '/logout',
   },
   session: {
     generateSessionToken: () => randomUUID(),
