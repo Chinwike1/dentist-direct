@@ -8,15 +8,31 @@ import {
   CreditCardIcon,
   UserIcon,
   QuestionMarkCircleIcon,
+  ArrowLeftCircleIcon,
 } from '@heroicons/react/24/outline'
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from '@/components/ui/alert-dialog'
+import { Button } from '@/components/ui/button'
+
 import { HistoryIcon } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import NavLink, { NavLinkType } from './nav-link'
 import Burger from './burger'
+import { signOut } from 'next-auth/react'
 import { useAppStore } from '@/app/zustand'
 import { motion } from 'framer-motion'
 import { NAVLENGTH } from '@/lib/constants'
 import Link from 'next/link'
+import LogoutButton from '../ui/logout'
 
 const navLinks: NavLinkType[] = [
   {
@@ -40,6 +56,11 @@ const navLinks: NavLinkType[] = [
     icon: <HistoryIcon />,
   },
   { name: 'Payments', path: '/dashboard/payments', icon: <CreditCardIcon /> },
+  {
+    name: 'Help & Support',
+    path: '#',
+    icon: <QuestionMarkCircleIcon />,
+  },
 ]
 
 export default function Sidebar() {
@@ -56,7 +77,7 @@ export default function Sidebar() {
       transition={{ duration: 0.3, type: 'tween' }}
       aria-expanded={isNavExpanded}
       className={cn(
-        'fixed z-50 flex h-full flex-col overflow-x-hidden bg-aqua py-6 text-aqua-100',
+        'bg-aqua text-aqua-100 fixed z-50 flex h-full flex-col overflow-x-hidden py-6',
         !isNavExpanded && 'rounded-r-xl',
       )}
     >
@@ -73,7 +94,7 @@ export default function Sidebar() {
           }}
           transition={{ type: 'tween' }}
           className={cn(
-            'ml-4 text-2xl font-bold text-aqua-100',
+            'text-aqua-100 ml-4 text-2xl font-bold',
             !isNavExpanded && 'hidden',
           )}
         >
@@ -90,25 +111,55 @@ export default function Sidebar() {
         ))}
       </ul>
 
-      {/* divider */}
-      <hr className="mx-auto mb-3 mt-12 w-[70%] rounded-sm border border-aqua-100 sm:border-none" />
-
       {/* more nav links */}
       <ul className="mt-auto">
-        <NavLink
+        {/* <NavLink
           data={{
-            name: 'Profile',
-            path: '/dashboard/profile',
-            icon: <UserIcon />,
-          }}
-        />
-        <NavLink
-          data={{
-            name: 'Help & Support',
+            name: 'Logout',
             path: '#',
-            icon: <QuestionMarkCircleIcon />,
+            icon: <ArrowLeftCircleIcon />,
           }}
-        />
+        /> */}
+
+        <AlertDialog>
+          <AlertDialogTrigger className="flex justify-end" asChild>
+            <div className="block p-4">
+              {isNavExpanded ? (
+                <motion.button className="text-aqua bg-aqua-100 m-auto flex w-full justify-center gap-4 rounded-md p-2 text-start font-medium hover:border-white">
+                  {' '}
+                  Logout{' '}
+                </motion.button>
+              ) : (
+                <motion.button className="text-aqua-100 m-auto flex w-full justify-center gap-4 rounded-md text-start font-medium hover:border-white">
+                  {' '}
+                  <ArrowLeftCircleIcon className={cn('size-8')} />
+                </motion.button>
+              )}
+
+              {/*             
+              <Button
+                className="text-aqua-100 m-auto flex w-full justify-center gap-4 rounded-md text-start font-medium hover:border-white"
+                variant="ghost"
+              >
+                Logout
+              </Button> */}
+            </div>
+          </AlertDialogTrigger>
+          <AlertDialogContent>
+            <AlertDialogHeader>
+              <AlertDialogTitle>Are you sure?</AlertDialogTitle>
+              <AlertDialogDescription>
+                Sure you want to go?
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+              <AlertDialogCancel>Cancel</AlertDialogCancel>
+              <AlertDialogAction>
+                <LogoutButton />
+              </AlertDialogAction>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
       </ul>
     </motion.nav>
   )
