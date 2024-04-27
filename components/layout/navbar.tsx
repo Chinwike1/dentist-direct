@@ -24,7 +24,7 @@ export default function Navbar() {
     <header className="fixed left-0 top-0 flex h-[--nav-height] w-full items-center bg-white px-7 shadow-md">
       <Link href="/" className="flex items-center gap-3">
         <Logo />
-        <span className="font-bold text-aqua">Dentist Direct</span>
+        <span className="font-bold text-aqua hidden sm:block">Dentist Direct</span>
       </Link>
       <div className="ml-auto flex gap-2">
         <Link
