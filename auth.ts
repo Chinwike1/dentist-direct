@@ -23,36 +23,6 @@ export const config = {
     }),
   ],
   callbacks: {
-    // async signIn({ user }) {
-    // }
-    // async signIn({ profile }) {
-    //   if (profile?.provider === 'google') {
-    //     const { email, given_name, family_name } = profile
-    //     try {
-    //       console.log(email, given_name, family_name)
-    //       await connectToDatabase('dentist-direct')
-    //       const userExists = await User.findOne({ email })
-    //       if (!userExists) {
-    //         const res = await fetch('http://localhost:3000/api/user', {
-    //           method: 'POST',
-    //           headers: {
-    //             'Content-Type': 'application/json',
-    //           },
-    //           body: JSON.stringify({
-    //             firstname: given_name,
-    //             lastname: family_name,
-    //             email: email,
-    //           }),
-    //         })
-    //         if (res.ok) return User
-    //       }
-    //     } catch (error) {
-    //       console.error(error)
-    //     }
-    //   }
-    //   return true // Do different verification for other providers that don't have `email_verified`
-    // },
-    //
     async signIn({ user, account, profile, email, credentials }) {
       if (profile?.provider === 'google') {
         const { email, given_name, family_name } = profile
@@ -80,22 +50,26 @@ export const config = {
       }
       return true // Do different verification for other providers that don't have `email_verified`
     },
-    async session({ session }) {
+    async session({ session, user }) {
       session.sessionToken = session.sessionToken
+      session.userId = user.id
       return session
     },
+    // async signOut() {
+
+    // }
   },
 
   pages: {
     signIn: '/register',
+    // signOut: '/logout',
   },
   session: {
     generateSessionToken: () => randomUUID(),
-    maxAge: 86400,
+    maxAge: 432000, // 5days
     strategy: 'database',
-    updateAge: 86400,
+    updateAge: 432000,
   },
-  debug: process.env.NODE_ENV === 'development' && true,
 } satisfies NextAuthConfig
 
 export const { handlers, auth } = NextAuth(config)

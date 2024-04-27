@@ -7,6 +7,8 @@ const config = {
     './components/**/*.{ts,tsx}',
     './app/**/*.{ts,tsx}',
     './src/**/*.{ts,tsx}',
+    // './node_modules/flowbite-react/lib/**/*.js',
+    // './node_modules/flowbite/**/*.js',
   ],
   prefix: '',
   theme: {
@@ -34,6 +36,14 @@ const config = {
           600: '#293989',
           700: '#1C275E',
           800: '#0F1533',
+        },
+        aqua: {
+          DEFAULT: '#003249',
+          100: '#D1FAFC',
+          200: '#9AD1D4',
+          300: '#80CED7',
+          400: '#007EA7',
+          500: '#003249',
         },
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
@@ -102,6 +112,7 @@ const config = {
   plugins: [
     require('tailwindcss-animate'),
     require('tailwindcss-debug-screens'),
+    // require('flowbite/plugin'),
   ],
 } satisfies Config
 
