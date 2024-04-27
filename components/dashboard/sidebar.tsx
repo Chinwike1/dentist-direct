@@ -6,9 +6,7 @@ import {
   CalendarDaysIcon,
   PencilSquareIcon,
   CreditCardIcon,
-  UserIcon,
   QuestionMarkCircleIcon,
-  ArrowLeftCircleIcon,
 } from '@heroicons/react/24/outline'
 import {
   AlertDialog,
@@ -21,18 +19,21 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog'
-import { Button } from '@/components/ui/button'
-
-import { HistoryIcon } from 'lucide-react'
+import { ArrowLeftToLineIcon, HistoryIcon } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import NavLink, { NavLinkType } from './nav-link'
 import Burger from './burger'
-import { signOut } from 'next-auth/react'
 import { useAppStore } from '@/app/zustand'
 import { motion } from 'framer-motion'
 import { NAVLENGTH } from '@/lib/constants'
 import Link from 'next/link'
 import LogoutButton from '../ui/logout'
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from '../ui/tooltip'
 
 const navLinks: NavLinkType[] = [
   {
@@ -77,7 +78,7 @@ export default function Sidebar() {
       transition={{ duration: 0.3, type: 'tween' }}
       aria-expanded={isNavExpanded}
       className={cn(
-        'bg-aqua text-aqua-100 fixed z-50 flex h-full flex-col overflow-x-hidden py-6',
+        'fixed z-50 flex h-full flex-col overflow-x-hidden bg-aqua py-6 text-aqua-100',
         !isNavExpanded && 'rounded-r-xl',
       )}
     >
@@ -94,7 +95,7 @@ export default function Sidebar() {
           }}
           transition={{ type: 'tween' }}
           className={cn(
-            'text-aqua-100 ml-4 text-2xl font-bold',
+            'ml-4 text-2xl font-bold text-aqua-100',
             !isNavExpanded && 'hidden',
           )}
         >
@@ -111,56 +112,52 @@ export default function Sidebar() {
         ))}
       </ul>
 
-      {/* more nav links */}
-      <ul className="mt-auto">
-        {/* <NavLink
-          data={{
-            name: 'Logout',
-            path: '#',
-            icon: <ArrowLeftCircleIcon />,
-          }}
-        /> */}
-
-        <AlertDialog>
-          <AlertDialogTrigger className="flex justify-end" asChild>
-            <div className="block p-4">
-              {isNavExpanded ? (
-                <motion.button className="text-aqua bg-aqua-100 m-auto flex w-full justify-center gap-4 rounded-md p-2 text-start font-medium hover:border-white">
-                  {' '}
-                  Logout{' '}
-                </motion.button>
-              ) : (
-                <motion.button className="text-aqua-100 m-auto flex w-full justify-center gap-4 rounded-md text-start font-medium hover:border-white">
-                  {' '}
-                  <ArrowLeftCircleIcon className={cn('size-8')} />
-                </motion.button>
-              )}
-
-              {/*             
-              <Button
-                className="text-aqua-100 m-auto flex w-full justify-center gap-4 rounded-md text-start font-medium hover:border-white"
-                variant="ghost"
-              >
-                Logout
-              </Button> */}
-            </div>
-          </AlertDialogTrigger>
-          <AlertDialogContent>
-            <AlertDialogHeader>
-              <AlertDialogTitle>Are you sure?</AlertDialogTitle>
-              <AlertDialogDescription>
-                Sure you want to go?
-              </AlertDialogDescription>
-            </AlertDialogHeader>
-            <AlertDialogFooter>
-              <AlertDialogCancel>Cancel</AlertDialogCancel>
-              <AlertDialogAction>
-                <LogoutButton />
-              </AlertDialogAction>
-            </AlertDialogFooter>
-          </AlertDialogContent>
-        </AlertDialog>
-      </ul>
+      {/* Logout Button & D */}
+      <AlertDialog>
+        <TooltipProvider>
+          <Tooltip>
+            <TooltipTrigger className="mt-6" asChild>
+              <AlertDialogTrigger className="flex justify-end" asChild>
+                <div className="block">
+                  <button
+                    className={cn(
+                      'm-auto flex w-[85%] justify-center gap-4 rounded-md border-2 p-2 text-start font-medium text-aqua-100',
+                      isNavExpanded
+                        ? 'hover:bg-aqua-100 hover:text-aqua'
+                        : 'border-none',
+                    )}
+                  >
+                    {isNavExpanded ? (
+                      'Logout'
+                    ) : (
+                      <ArrowLeftToLineIcon className={cn('size-6')} />
+                    )}
+                  </button>
+                </div>
+              </AlertDialogTrigger>
+            </TooltipTrigger>
+            <TooltipContent
+              className={cn('bg-aqua-100 text-aqua', isNavExpanded && 'hidden')}
+            >
+              Logout
+            </TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Sign out of Dentist Direct?</AlertDialogTitle>
+            <AlertDialogDescription>
+              Are you sure you want to go?
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <AlertDialogAction>
+              <LogoutButton />
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </motion.nav>
   )
 }
