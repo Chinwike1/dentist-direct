@@ -20,7 +20,7 @@ export default function DashboardContent({
         marginLeft: isNavExpanded ? NAVLENGTH.expanded : NAVLENGTH.collapsed,
       }}
       transition={{ type: 'tween' }}
-      className="h-screen"
+      className="min-h-screen"
     >
       {children}
     </motion.main>
