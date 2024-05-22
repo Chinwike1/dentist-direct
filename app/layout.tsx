@@ -10,6 +10,9 @@ import '@radix-ui/themes/styles.css'
 export const metadata: Metadata = {
   title: 'Dentist Direct',
   description: 'Expert dentistry services at your fingertips',
+  icons: {
+    icon: '/icon.png',
+  },
 }
 
 export default function RootLayout({
