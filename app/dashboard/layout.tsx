@@ -3,7 +3,7 @@ import { redirect } from 'next/navigation'
 import Sidebar from '@/components/dashboard/sidebar'
 import DashboardContent from '@/components/dashboard/dashboard-content'
 import Header from '@/components/dashboard/header'
-import { SessionProvider } from 'next-auth/react'
+import { AuthProvider } from '@/components/layout/auth-provider'
 
 export default async function DashBoardLayout({
   children,
@@ -17,12 +17,12 @@ export default async function DashBoardLayout({
   // TODO: add functionality for redirecting the user based of 'action' urlParam e.g "/dashboard?action=book"
 
   return (
-    <SessionProvider>
+    <AuthProvider>
       <div className="relative bg-[#EFFEFF]">
         <Sidebar />
         <Header />
         <DashboardContent>{children}</DashboardContent>
       </div>
-    </SessionProvider>
+    </AuthProvider>
   )
 }
