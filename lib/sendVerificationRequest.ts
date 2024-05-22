@@ -17,6 +17,7 @@ export default async function sendVerificationRequest({
   identifier,
   url,
 }: SendVerificationRequestParams) {
+  const templateId = '3yxj6ljd920ldo2r'
   const sentFrom = new Sender(process.env.FROM_EMAIL, 'Dentist Direct')
 
   const recipients = [new Recipient(identifier, identifier)]
@@ -37,13 +38,13 @@ export default async function sendVerificationRequest({
     .setReplyTo(sentFrom)
     .setSubject('Sign in to Dentist Direct')
     .setPersonalization(personalization)
-    .setTemplateId('3yxj6ljd920ldo2r')
+    .setTemplateId(templateId)
 
   try {
     await mailerSend.email.send(emailParams)
     console.log('Email delivered!')
   } catch (error: any) {
-    console.log(error.message)
+    console.error(error)
     throw new Error('Failed to send verification email')
   }
 }

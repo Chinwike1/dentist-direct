@@ -24,11 +24,12 @@ export const config = {
   ],
   callbacks: {
     async signIn({ user, account, profile, email, credentials }) {
+      await connectToDatabase('dentist-direct')
+      // Google
       if (profile?.provider === 'google') {
         const { email, given_name, family_name } = profile
         try {
           console.log(email, given_name, family_name)
-          await connectToDatabase('dentist-direct')
           const userExists = await User.findOne({ email })
           if (!userExists) {
             const res = await fetch('http://localhost:3000/api/user', {
@@ -40,6 +41,7 @@ export const config = {
                 firstname: given_name,
                 lastname: family_name,
                 email: email,
+                provider: 'google',
               }),
             })
             if (res.ok) console.log('New User Saved')
@@ -48,7 +50,32 @@ export const config = {
           console.error(error)
         }
       }
-      return true // Do different verification for other providers that don't have `email_verified`
+      // Magic link
+      const { email: user_email } = user
+      // signIn was triggered from the verification email
+      if (account?.provider === 'email' && !email?.verificationRequest) {
+        try {
+          const userExists = await User.findOne({ email: user_email })
+          if (!userExists) {
+            const res = await fetch(`http://localhost:3000/api/user`, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                firstname: '',
+                lastname: '',
+                email: user_email,
+                provider: account.provider,
+              }),
+            })
+            if (res.ok) console.log('New User Saved')
+          }
+        } catch (error) {
+          console.error(error)
+        }
+      }
+      return true
     },
     async session({ session, user }) {
       session.sessionToken = session.sessionToken
@@ -70,6 +97,7 @@ export const config = {
     strategy: 'database',
     updateAge: 432000,
   },
+  // debug: process.env.NODE_ENV !== 'production',
 } satisfies NextAuthConfig
 
 export const { handlers, auth } = NextAuth(config)
