@@ -1,5 +1,5 @@
 import { cn } from '@/lib/utils'
-import { RotateCw } from 'lucide-react'
+import { LoaderCircleIcon } from 'lucide-react'
 
 interface SpinnerProps {
   className?: string
@@ -17,7 +17,7 @@ export default function Spinner({
   return (
     <>
       {textLeft && <span>{textLeft}</span>}
-      <RotateCw
+      <LoaderCircleIcon
         className={cn(
           className,
           size ? `size-${size}` : 'size-5',

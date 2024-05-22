@@ -37,14 +37,14 @@ export default function Navbar() {
         {pathname === '/login' ? (
           <Link
             href="/register"
-            className="ml-auto flex items-center gap-2 rounded-2xl border-[1.5px] border-aqua px-3 py-2 font-semibold text-aqua transition-colors hover:bg-aqua hover:text-aqua-100"
+            className="ml-auto flex items-center gap-2 rounded-md px-3 py-2 font-semibold text-aqua transition-colors hover:bg-aqua-100"
           >
             Register Now <ChevronRightIcon className="h-5 w-5" />
           </Link>
         ) : (
           <Link
             href="/login"
-            className="ml-auto flex items-center gap-2 rounded-2xl border-[1.5px] border-aqua px-3 py-2 font-semibold text-aqua transition-colors hover:bg-aqua hover:text-aqua-100"
+            className="ml-auto flex items-center gap-2 rounded-md px-3 py-2 font-semibold text-aqua transition-colors hover:bg-aqua-100"
           >
             Sign In <ChevronRightIcon className="h-5 w-5" />
           </Link>

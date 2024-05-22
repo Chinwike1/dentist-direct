@@ -106,22 +106,22 @@ export default function Sidebar() {
       <Burger />
 
       {/* nav links */}
-      <ul className="flex flex-col gap-6">
+      <ul className="mb-7 flex flex-col gap-6">
         {navLinks.map((link) => (
           <NavLink key={link.name} data={link} />
         ))}
       </ul>
 
-      {/* Logout Button & D */}
+      {/* Logout Button & Dialog */}
       <AlertDialog>
         <TooltipProvider>
           <Tooltip>
-            <TooltipTrigger className="mt-6" asChild>
+            <TooltipTrigger className="mt-auto" asChild>
               <AlertDialogTrigger className="flex justify-end" asChild>
                 <div className="block">
                   <button
                     className={cn(
-                      'm-auto flex w-[85%] justify-center gap-4 rounded-md border-2 p-2 text-start font-medium text-aqua-100',
+                      'm-auto flex w-[85%] justify-center gap-4 rounded-md border-2 border-aqua-100 p-2 text-start font-medium text-aqua-100 transition-colors',
                       isNavExpanded
                         ? 'hover:bg-aqua-100 hover:text-aqua'
                         : 'border-none',
