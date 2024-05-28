@@ -17,7 +17,7 @@ import { useEffect } from 'react'
 export default function Dashcard() {
   const { user } = useAppStore((state) => state)
   useEffect(() => {
-    console.log(user)
+    // console.log(user)
   }, [user])
 
   const { data: session } = useSession()

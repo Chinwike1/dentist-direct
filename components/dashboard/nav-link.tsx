@@ -28,8 +28,8 @@ export default function NavLink({ data }: NavLinkProps) {
           <Link
             href={data.path}
             className={cn(
-              'hover:border-aqua-100 ml-auto flex h-[55px] items-center gap-4 border-2 border-transparent transition-colors',
-              pathname === data.path && 'text-aqua bg-aqua-100',
+              'ml-auto flex h-[55px] items-center gap-4 border-2 border-transparent transition-colors hover:border-aqua-100',
+              pathname === data.path && 'bg-aqua-100 text-aqua',
               isNavExpanded && 'w-[90%] rounded-l-2xl p-4',
               !isNavExpanded && 'mx-auto w-fit rounded-[18px] p-3',
             )}

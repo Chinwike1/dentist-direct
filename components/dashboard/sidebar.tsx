@@ -1,5 +1,4 @@
 'use client'
-
 import Logo from '../icons/logo'
 import {
   HomeModernIcon,
@@ -34,35 +33,6 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from '../ui/tooltip'
-
-const navLinks: NavLinkType[] = [
-  {
-    name: 'Home',
-    path: '/dashboard',
-    icon: <HomeModernIcon />,
-  },
-  {
-    name: 'Book Appointment',
-    path: '/dashboard/book',
-    icon: <CalendarDaysIcon />,
-  },
-  {
-    name: 'Manage Appointments',
-    path: '/dashboard/manage',
-    icon: <PencilSquareIcon />,
-  },
-  {
-    name: 'Appointment History',
-    path: '/dashboard/history',
-    icon: <HistoryIcon />,
-  },
-  { name: 'Payments', path: '/dashboard/payments', icon: <CreditCardIcon /> },
-  {
-    name: 'Help & Support',
-    path: '#',
-    icon: <QuestionMarkCircleIcon />,
-  },
-]
 
 export default function Sidebar() {
   const { isNavExpanded } = useAppStore((state) => state)
@@ -161,3 +131,32 @@ export default function Sidebar() {
     </motion.nav>
   )
 }
+
+const navLinks: NavLinkType[] = [
+  {
+    name: 'Home',
+    path: '/dashboard',
+    icon: <HomeModernIcon />,
+  },
+  {
+    name: 'Book Appointment',
+    path: '/dashboard/book',
+    icon: <CalendarDaysIcon />,
+  },
+  {
+    name: 'Manage Appointments',
+    path: '/dashboard/manage',
+    icon: <PencilSquareIcon />,
+  },
+  {
+    name: 'Appointment History',
+    path: '/dashboard/history',
+    icon: <HistoryIcon />,
+  },
+  { name: 'Payments', path: '/dashboard/payments', icon: <CreditCardIcon /> },
+  {
+    name: 'Help & Support',
+    path: '#',
+    icon: <QuestionMarkCircleIcon />,
+  },
+]
