@@ -17,7 +17,7 @@ export default async function sendVerificationRequest({
   identifier,
   url,
 }: SendVerificationRequestParams) {
-  const templateId = '3yxj6ljd920ldo2r'
+  const templateId = process.env.EMAIL_TEMPLATE_ID
   const sentFrom = new Sender(process.env.FROM_EMAIL, 'Dentist Direct')
 
   const recipients = [new Recipient(identifier, identifier)]

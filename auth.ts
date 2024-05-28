@@ -3,7 +3,6 @@ import { MongoDBAdapter } from '@auth/mongodb-adapter'
 import connectToDatabase from './lib/connectdb'
 import Google from 'next-auth/providers/google'
 import User from '@/app/models/userModel'
-import Credentials from 'next-auth/providers/credentials'
 import Github from 'next-auth/providers/github'
 import type { NextAuthConfig } from 'next-auth'
 import clientPromise from './lib/mongodb'
@@ -56,6 +55,7 @@ export const config = {
       if (account?.provider === 'email' && !email?.verificationRequest) {
         try {
           const userExists = await User.findOne({ email: user_email })
+          console.log('userExists: ', userExists)
           if (!userExists) {
             const res = await fetch(`http://localhost:3000/api/user`, {
               method: 'POST',
@@ -65,6 +65,7 @@ export const config = {
               body: JSON.stringify({
                 firstname: '',
                 lastname: '',
+                avatar_url: '',
                 email: user_email,
                 provider: account.provider,
               }),

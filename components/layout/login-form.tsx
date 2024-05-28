@@ -1,5 +1,4 @@
 'use client'
-
 import { Button } from '../ui/button'
 import { Form, FormControl, FormField, FormItem } from '../ui/form'
 import { Input } from '../ui/input'
@@ -52,7 +51,7 @@ export default function LoginForm() {
         const signInResult = await signIn('email', {
           email: data.email.toLowerCase(),
           redirect: false,
-          callbackUrl: '/dashboard',
+          callbackUrl: `${process.env.NEXT_PUBLIC_API_BASE_URL}/calendly/oauth`, // initialize calendly
         })
 
         if (signInResult?.ok && signInResult.error === null) {
