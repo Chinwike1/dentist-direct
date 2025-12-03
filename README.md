@@ -11,22 +11,10 @@ A modern SaaS starter kit for building appointment-based applications. Built wit
 - **State Management** — Zustand for lightweight client-side state
 - **Type Safety** — Full TypeScript support with validated environment variables
 
-## 📁 Project Structure
+## 👥 Authors
 
-```text
-├── app/
-│   ├── (auth)/           # Auth pages (login, register, logout)
-│   ├── api/              # API routes (auth, user management)
-│   ├── dashboard/        # Protected dashboard pages
-│   └── models/           # Mongoose models
-├── components/
-│   ├── dashboard/        # Dashboard-specific components
-│   ├── layout/           # Layout components (navbar, forms)
-│   ├── icons/            # SVG icon components
-│   └── ui/               # Reusable UI primitives
-├── lib/                  # Utilities, DB connection, helpers
-└── auth.ts               # Auth.js configuration
-```
+- **Chinwike Anthony** — [@Chinwike1](https://github.com/Chinwike1)
+- **Jude Okorie** — [@JudetheGemini](https://github.com/JudetheGemini)
 
 ## 🛠️ Tech Stack
 
@@ -140,11 +128,6 @@ The easiest way to deploy is with [Vercel](https://vercel.com/new?utm_medium=def
 2. Import the project on Vercel
 3. Add your environment variables
 4. Deploy!
-
-## 👥 Authors
-
-- **Chinwike Anthony** — [@Chinwike1](https://github.com/Chinwike1)
-- **Jude Okorie** — [@JudetheGemini](https://github.com/JudetheGemini)
 
 ## 📄 License
 
