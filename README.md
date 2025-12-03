@@ -1,36 +1,151 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Dentist Direct
 
-## Getting Started
+A modern SaaS starter kit for building appointment-based applications. Built with Next.js 14, Auth.js, MongoDB, and TailwindCSS.
 
-First, run the development server:
+## 🚀 Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+- **Authentication** — Magic Link (email) + Google OAuth via [Auth.js](https://authjs.dev/) (NextAuth v5)
+- **Database** — MongoDB with Mongoose ODM and Auth.js MongoDB Adapter
+- **Styling** — TailwindCSS + Radix UI primitives + Framer Motion animations
+- **Forms** — React Hook Form + Zod validation
+- **State Management** — Zustand for lightweight client-side state
+- **Type Safety** — Full TypeScript support with validated environment variables
+
+## 📁 Project Structure
+
+```text
+├── app/
+│   ├── (auth)/           # Auth pages (login, register, logout)
+│   ├── api/              # API routes (auth, user management)
+│   ├── dashboard/        # Protected dashboard pages
+│   └── models/           # Mongoose models
+├── components/
+│   ├── dashboard/        # Dashboard-specific components
+│   ├── layout/           # Layout components (navbar, forms)
+│   ├── icons/            # SVG icon components
+│   └── ui/               # Reusable UI primitives
+├── lib/                  # Utilities, DB connection, helpers
+└── auth.ts               # Auth.js configuration
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🛠️ Tech Stack
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+| Category | Technology |
+|----------|------------|
+| Framework | Next.js 14 (App Router) |
+| Authentication | Auth.js (NextAuth v5) |
+| Database | MongoDB + Mongoose |
+| Styling | TailwindCSS, Radix UI, Framer Motion |
+| Forms | React Hook Form + Zod |
+| State | Zustand |
+| Email | Mailersend (SMTP) |
+| Language | TypeScript |
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## 📋 Prerequisites
 
-## Learn More
+- Node.js 24.x or higher
+- pnpm (recommended) or npm/yarn
+- MongoDB database (local or Atlas)
+- Google OAuth credentials (for Google sign-in)
+- Mailersend account (for magic link emails)
 
-To learn more about Next.js, take a look at the following resources:
+## 🚀 Getting Started
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### 1. Clone the repository
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+```bash
+git clone https://github.com/Chinwike1/dentist-direct.git
+cd dentist-direct
+```
 
-## Deploy on Vercel
+### 2. Install dependencies
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```bash
+pnpm install
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+### 3. Set up environment variables
+
+```bash
+cp .env.example .env.local
+```
+
+Edit `.env.local` with your credentials:
+
+```env
+# Authentication (Auth.js)
+AUTH_SECRET=your-auth-secret-here          # Generate with: openssl rand -base64 32
+AUTH_TRUST_HOST=http://localhost:3000
+
+# Google OAuth
+AUTH_GOOGLE_ID=your-google-client-id
+AUTH_GOOGLE_SECRET=your-google-client-secret
+
+# Database (MongoDB)
+MONGODB_URI=mongodb+srv://...
+
+# Email (Mailersend)
+SMTP_SERVER=smtp://user:password@smtp.mailersend.net:587
+MAILERSEND_API_KEY=your-api-key
+FROM_EMAIL=noreply@yourdomain.com
+```
+
+### 4. Run the development server
+
+```bash
+pnpm dev
+```
+
+Open [http://localhost:3000](http://localhost:3000) to see the app.
+
+### 5. Build for production
+
+```bash
+pnpm build
+pnpm start
+```
+
+## 🔐 Authentication
+
+This starter uses **Auth.js** (NextAuth v5) with two providers:
+
+### Magic Link (Email)
+
+- Users enter their email and receive a secure login link
+- Powered by Mailersend SMTP
+- No password required
+
+### Google OAuth
+
+- One-click sign-in with Google
+- Requires Google Cloud Console OAuth credentials
+
+Both methods use the MongoDB adapter to persist sessions and user data.
+
+## 📜 Available Scripts
+
+| Command | Description |
+|---------|-------------|
+| `pnpm dev` | Start development server |
+| `pnpm build` | Build for production |
+| `pnpm start` | Start production server |
+| `pnpm lint` | Run ESLint |
+| `pnpm turbo` | Start dev server with Turbopack |
+
+## 🚢 Deploy on Vercel
+
+The easiest way to deploy is with [Vercel](https://vercel.com/new?utm_medium=default-template&filter=next.js):
+
+1. Push your code to GitHub
+2. Import the project on Vercel
+3. Add your environment variables
+4. Deploy!
+
+## 👥 Authors
+
+- **Chinwike Anthony** — [@Chinwike1](https://github.com/Chinwike1)
+- **Jude Okorie** — [@JudetheGemini](https://github.com/JudetheGemini)
+
+## 📄 License
+
+This project is open source and available under the [MIT License](LICENSE).
